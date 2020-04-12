@@ -3,9 +3,24 @@
 session_start();
 
 require_once 'vendor/autoload.php';
+require_once 'helper/auth.php';
 require_once 'helper/searchapi.php';
 
 $request = $_SERVER['REQUEST_URI'];
+
+$client = new Google_Client();
+$client->setApplicationName("GSearch");
+$client->setAccessType('offline');
+$client->setClientId('206666106923-6bi9grq4qahco6f2cne0nnsksv0g24df.apps.googleusercontent.com');
+$client->setClientSecret('YvQxXp8Nn1-7YcpWuLm1F7I0');
+$client->setRedirectUri('http://localhost:8000/login');
+$client->addScope("https://www.googleapis.com/auth/webmasters.readonly");
+
+if (isset($_COOKIE['acces_token']) && isset($_COOKIE['refresh_token']) && isset($_COOKIE['expires_in'])) {
+  $client->setAccessToken(array('access_token' => $_COOKIE['access_token'], 'refresh_token' => $_COOKIE['refresh_token'], 'expires_in' => $_COOKIE['expires_in']));
+  if ($client->isAccessTokenExpired())
+    refreshToken(array('access_token' => $_COOKIE['access_token'], 'refresh_token' => $_COOKIE['refresh_token'], 'expires_in' => $_COOKIE['expires_in']));
+}
 
 switch ($request) {
   case '/':
@@ -25,6 +40,10 @@ switch ($request) {
 
   case (preg_match('/\/login.*/', $request) ? true : false):
     require __DIR__ . '/controllers/login.php';
+    break;
+
+  case '/getCSV':
+    require __DIR__ . '/controllers/getCSV.php';
     break;
 
   default:
