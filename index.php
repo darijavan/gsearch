@@ -11,9 +11,7 @@ $request = $_SERVER['REQUEST_URI'];
 $client = new Google_Client();
 $client->setApplicationName("GSearch");
 $client->setAccessType('offline');
-$client->setClientId('206666106923-6bi9grq4qahco6f2cne0nnsksv0g24df.apps.googleusercontent.com');
-$client->setClientSecret('YvQxXp8Nn1-7YcpWuLm1F7I0');
-$client->setRedirectUri('http://localhost:8000/login');
+$client->setAuthConfig('client_secret.json');
 $client->addScope("https://www.googleapis.com/auth/webmasters.readonly");
 
 if (isset($_COOKIE['acces_token']) && isset($_COOKIE['refresh_token']) && isset($_COOKIE['expires_in'])) {

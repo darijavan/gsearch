@@ -1,6 +1,7 @@
 var selectAll = document.querySelector('#selectAll');
-var allCheckboxes = document.querySelectorAll('input[type=checkbox]:not(#selectAll)');
+var allCheckboxes = document.querySelectorAll('input[type=checkbox]:not(#selectAll):not(:disabled)');
 
+// Track checkbox state change so that 
 allCheckboxes.forEach(e => e.addEventListener('change', function () {
   if (!e.checked)
     selectAll.checked = false;
@@ -17,42 +18,65 @@ allCheckboxes.forEach(e => e.addEventListener('change', function () {
   }
 }));
 
+// Add change listener to 'select-all' checkbox
 selectAll.addEventListener('change', function () {
   if (selectAll.checked)
-    document.querySelectorAll('input[type=checkbox]').forEach(e => e.checked = true);
+    allCheckboxes.forEach(e => e.checked = true);
   else
-    document.querySelectorAll('input[type=checkbox]').forEach(e => e.checked = false);
+    allCheckboxes.forEach(e => e.checked = false);
 });
 
 var exportBtn = document.querySelector('#export');
 var form = document.querySelector('#form');
 
+// Init export button click listener
 exportBtn.addEventListener('click', function (event) {
   event.preventDefault();
 
   let placeholder = exportBtn.querySelector('span').innerHTML;
   exportBtn.querySelector('span').innerHTML = 'En cours...';
+  exportBtn.classList.add('disabled');
 
-  let i = 0;
-  if (i < allCheckboxes.length) {
-    let e = allCheckboxes[i];
-    post(form.action, {
-      list: e.name
-    });
-    i++;
+  // Sequencial download
+  // let i = 0;
+  // if (i < allCheckboxes.length) {
+  //   let e = allCheckboxes[i];
+  //   console.log(e.name);
+  //   post(form.action, {
+  //     list: e.name
+  //   });
+  //   i++;
+  // }
+  // let handle = setInterval(() => {
+  //   if (i < allCheckboxes.length) {
+  //     let e = allCheckboxes[i];
+  //     post(form.action, {
+  //       list: e.name
+  //     });
+  //     i++;
+  //   }
+  //   if (i >= allCheckboxes.length) {
+  //     clearInterval(handle);
+  //     exportBtn.querySelector('span').innerHTML = placeholder;
+  //     exportBtn.classList.remove('disabled');
+  //   }
+  // }, 3000);
+
+  // For multiple file, download a zip
+  let checked = [];
+  for (let i = 0; i < allCheckboxes.length; i++) {
+    if (allCheckboxes[i].checked)
+      checked.push(allCheckboxes[i].name);
   }
-  let handle = setInterval(() => {
-    if (i < allCheckboxes.length) {
-      let e = allCheckboxes[i];
-      post(form.action, {
-        list: e.name
-      });
-      i++;
-    }
-    if (i >= allCheckboxes.length) {
-      clearInterval(handle);
-      exportBtn.querySelector('span').innerHTML = placeholder;
-    }
+  let list = checked.join(';');
+
+  post(form.action, {
+    list
+  });
+
+  setTimeout(() => {
+    exportBtn.querySelector('span').innerHTML = placeholder;
+    exportBtn.classList.remove('disabled');
   }, 2000);
 });
 

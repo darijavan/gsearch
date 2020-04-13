@@ -33,6 +33,10 @@
     .collection .collection-item {
       line-height: 2.5rem;
     }
+
+    .unverified {
+      background-color: #c5c5c5 !important;
+    }
   </style>
 </head>
 
@@ -68,14 +72,26 @@
           </li>
           <?php
           foreach ($sites as $site) {
+            if ($site->permissionLevel !== 'siteUnverifiedUser') {
           ?>
-            <li class="collection-item">
-              <label>
-                <input type="checkbox" class="filled-in" name="<?= urlencode($site->siteUrl) ?>" />
-                <span class="black-text"><?= $site->siteUrl ?></span>
-              </label>
-            </li>
+              <li class="collection-item">
+                <label>
+                  <input type="checkbox" class="filled-in" name="<?= urlencode($site->siteUrl) ?>" />
+                  <span class="black-text"><?= $site->siteUrl ?></span>
+                </label>
+              </li>
+            <?php
+            } else {
+            ?>
+              <li class="collection-item unverified">
+                <label>
+                  <input type="checkbox" class="filled-in" name="<?= urlencode($site->siteUrl) ?>" disabled="disabled" />
+                  <span class="black-text"><?= $site->siteUrl ?></span>
+                  <span class="right bold black-text">Non vérifiée</span>
+                </label>
+              </li>
           <?php
+            }
           }
           ?>
         </ul>
@@ -89,6 +105,7 @@
     </div>
   </form>
 
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="/public/javascripts/index.js"></script>
 </body>

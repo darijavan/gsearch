@@ -6,6 +6,7 @@ if (!empty($_POST)) {
     header('Location: http://' . $_SERVER['HTTP_HOST']);
     exit();
   }
+  header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
 
   $toBeExported = explode(';', $_POST['list']);
 
