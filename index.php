@@ -9,12 +9,13 @@ require_once 'helper/searchapi.php';
 $request = $_SERVER['REQUEST_URI'];
 
 $client = new Google_Client();
-$client->setApplicationName("GSearch");
-$client->setAccessType('offline');
 $client->setAuthConfig('client_secret.json');
 $client->addScope("https://www.googleapis.com/auth/webmasters.readonly");
+$client->setAccessType('offline');
+$client->setIncludeGrantedScopes(true);
 
 if (isset($_COOKIE['acces_token']) && isset($_COOKIE['refresh_token']) && isset($_COOKIE['expires_in'])) {
+  $client->getCache()->clear();
   $client->setAccessToken(array('access_token' => $_COOKIE['access_token'], 'refresh_token' => $_COOKIE['refresh_token'], 'expires_in' => $_COOKIE['expires_in']));
   if ($client->isAccessTokenExpired())
     refreshToken(array('access_token' => $_COOKIE['access_token'], 'refresh_token' => $_COOKIE['refresh_token'], 'expires_in' => $_COOKIE['expires_in']));

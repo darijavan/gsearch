@@ -6,10 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>A propos</title>
+
+  <base href="/">
 </head>
 
 <body>
-  <h1>About</h1>
+  <h4>A propos</h4>
 </body>
 
 </html>

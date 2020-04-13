@@ -25,23 +25,24 @@ function authenticateWithCode($code)
   $tokens = $client->getAccessToken();
   $access_token = $tokens['access_token'];
   $refresh_token = $tokens['refresh_token'];
+  $expires_in = $tokens['expires_in'];
 
   setcookie('access_token', $access_token, time() + 60 * 60 * 24 * 10);
   setcookie('refresh_token', $refresh_token, time() + 60 * 60 * 24 * 10);
-  setcookie('expires_in', $tokens['expires_in'], time() + 60 * 60 * 24 * 10);
+  setcookie('expires_in', $expires_in, time() + 60 * 60 * 24 * 10);
 
   $redirect = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
   header('Location: ' . filter_var($redirect, FILTER_SANITIZE_URL));
 }
 
 /**
- * Redirige vers une connexion OAuth avec Google
+ * Rediriger vers une connexion OAuth avec Google
  */
 function createAuth()
 {
   global $client;
   $authUrl = $client->createAuthUrl();
-  header('Location: ' . $authUrl);
+  header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
 }
 
 /**
@@ -56,8 +57,9 @@ function refreshToken($token)
   $tokens = $client->getAccessToken();
   $access_token = $tokens['access_token'];
   $refresh_token = $tokens['refresh_token'];
+  $expires_in = $tokens['expires_in'];
 
   setcookie('access_token', $access_token, time() + 60 * 60 * 24 * 10);
   setcookie('refresh_token', $refresh_token, time() + 60 * 60 * 24 * 10);
-  setcookie('expires_in', $tokens['expires_in'], time() + 60 * 60 * 24 * 10);
+  setcookie('expires_in', $expires_in, time() + 60 * 60 * 24 * 10);
 }

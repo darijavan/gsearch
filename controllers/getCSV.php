@@ -10,7 +10,13 @@ if (!empty($_POST)) {
 
   $toBeExported = explode(';', $_POST['list']);
 
-  $zip_file = __DIR__ . "/../cache/" . $_COOKIE['PHPSESSID'] . ".zip";
+  $cache_dir = __DIR__ . '/../cache';
+
+  if (!is_dir($cache_dir)) {
+    mkdir($cache_dir, 0755);
+  }
+
+  $zip_file = "$cache_dir/" . $_COOKIE['PHPSESSID'] . ".zip";
   $zip = new ZipArchive();
   if ($zip->open($zip_file, ZipArchive::CREATE) !== TRUE) {
     exit("Unable to create zip file");
@@ -19,8 +25,8 @@ if (!empty($_POST)) {
   foreach ($toBeExported as $site) {
     $obj = getSiteAnalytics(urldecode($site), $_COOKIE['access_token']);
     $siteDomain = preg_replace('/^(http[s]?:\/\/)|(sc-domain:)/i', '', preg_replace('/\/$/i', '', urldecode($site)));
-    $jsonPath = __DIR__ . "/../cache/$siteDomain.json";
-    $csvPath = __DIR__ . "/../cache/$siteDomain.csv";
+    $jsonPath = "$cache_dir/$siteDomain.json";
+    $csvPath = "$cache_dir/$siteDomain.csv";
 
     if (file_exists($jsonPath))
       unlink($jsonPath);

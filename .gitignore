@@ -1,2 +1,5 @@
 # Composer dependencies
 vendor/
+
+# Ignore client app auth config
+client_secret.json
