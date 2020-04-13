@@ -1,0 +1,24 @@
+.hidden {
+  display: none;
+}
+
+.preloader-wrapper.small {
+  width: 20px;
+  height: 20px;
+}
+
+.nav-wrapper {
+  padding-left: 20px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.collection .collection-item {
+  line-height: 2.5rem;
+}
+
+.unverified {
+  background-color: #c5c5c5 !important;
+}

@@ -9,35 +9,9 @@
 
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="/public/styles/styles.css">
 
   <base href="/">
-
-  <style>
-    .hidden {
-      display: none;
-    }
-
-    .preloader-wrapper.small {
-      width: 20px;
-      height: 20px;
-    }
-
-    .nav-wrapper {
-      padding-left: 20px;
-    }
-
-    .bold {
-      font-weight: bold;
-    }
-
-    .collection .collection-item {
-      line-height: 2.5rem;
-    }
-
-    .unverified {
-      background-color: #c5c5c5 !important;
-    }
-  </style>
 </head>
 
 <body>
