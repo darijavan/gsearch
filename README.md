@@ -4,7 +4,7 @@ Google Search Console App
 
 ## Setup
 
-Download authorization credentials from the [Google API Console](https://console.developers.google.com/apis/credentials)
+Download authorization credentials (for OAuth ID) from the [Google API Console](https://console.developers.google.com/apis/credentials)
 And put it on the project root, named as "client_secret.json"
 
 ## Author
