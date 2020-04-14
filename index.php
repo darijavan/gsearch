@@ -14,11 +14,13 @@ $client->addScope("https://www.googleapis.com/auth/webmasters.readonly");
 $client->setAccessType('offline');
 $client->setIncludeGrantedScopes(true);
 
-if (isset($_COOKIE['acces_token']) && isset($_COOKIE['refresh_token']) && isset($_COOKIE['expires_in'])) {
-  $client->getCache()->clear();
-  $client->setAccessToken(array('access_token' => $_COOKIE['access_token'], 'refresh_token' => $_COOKIE['refresh_token'], 'expires_in' => $_COOKIE['expires_in']));
+print_r($_COOKIE);
+
+if (isset($_COOKIE['access_token']) && isset($_COOKIE['refresh_token']) && isset($_COOKIE['expires_in'])) {
+  $token = array('access_token' => $_COOKIE['access_token'], 'refresh_token' => $_COOKIE['refresh_token'], 'expires_in' => $_COOKIE['expires_in']);
+  $client->setAccessToken($token);
   if ($client->isAccessTokenExpired())
-    refreshToken(array('access_token' => $_COOKIE['access_token'], 'refresh_token' => $_COOKIE['refresh_token'], 'expires_in' => $_COOKIE['expires_in']));
+    refreshToken($token['refresh_token']);
 }
 
 switch ($request) {

@@ -23,7 +23,7 @@ function getSites($access_token)
 
   $result = curl_exec($ch);
   $obj = json_decode($result);
-
+  
   return $obj;
 }
 
