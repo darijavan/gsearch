@@ -43,6 +43,14 @@
               <i class="material-icons left">cloud_download</i>
               <span>Exporter en CSV</span>
             </div>
+            <a class='dropdown-trigger btn btn-flat white right' href='#' data-target='settings' style="margin-right: 10px"><i class="material-icons">settings</i></a>
+
+            <div id="settings" class="dropdown-content">
+              <div class="input-field" style="margin-bottom: .5rem">
+                <label for="startDate">Jour de début des requêtes</label>
+                <input id="startDate" type="text" class="datepicker" name="startDate">
+              </div>
+            </div>
           </li>
           <?php
           foreach ($sites as $site) {
@@ -78,6 +86,8 @@
       ?>
     </div>
   </form>
+
+  <div class="modal-container"></div>
 
   <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

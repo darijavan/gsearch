@@ -69,9 +69,11 @@ exportBtn.addEventListener('click', function (event) {
       checked.push(allCheckboxes[i].name);
   }
   let list = checked.join(';');
+  let startDate = document.querySelector('#startDate').value;
 
   post(form.action, {
-    list
+    list,
+    startDate
   });
 
   setTimeout(() => {
@@ -101,3 +103,61 @@ function post(url, params, method = 'POST') {
   document.body.appendChild(form);
   form.submit();
 }
+
+// init dropdown
+var dropdownElements = document.querySelectorAll('.dropdown-trigger');
+var dropdowns = M.Dropdown.init(dropdownElements, {
+  hover: true,
+  constrainWidth: false
+});
+
+// init datepicker
+var pickerElements = document.querySelectorAll('.datepicker');
+var pickers = M.Datepicker.init(pickerElements, {
+  autoClose: true,
+  format: 'yyyy-mm-dd',
+  defaultDate: new Date(2020, 0, 1),
+  setDefaultDate: true,
+  container: document.querySelector('.modal-container'),
+  i18n: {
+    cancel: 'Annuler',
+    clear: 'Effacer',
+    months: [
+      'Janvier',
+      'Février',
+      'Mars',
+      'Avril',
+      'Mai',
+      'Juin',
+      'Juillet',
+      'Août',
+      'Septembre',
+      'Octobre',
+      'Novembre',
+      'Decembre'
+    ],
+    monthsShort: [
+      'Jan',
+      'Fév',
+      'Mar',
+      'Avr',
+      'Mai',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec'
+    ],
+    weekdaysShort: [
+      'Dim',
+      'Lun',
+      'Mar',
+      'Mer',
+      'Jeu',
+      'Ven',
+      'Sam'
+    ]
+  }
+});

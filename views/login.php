@@ -9,6 +9,7 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+  <link rel="stylesheet" href="/public/styles/login.css">
   <base href="/">
 </head>
 
@@ -16,6 +17,13 @@
   <div class="container center-align">
     <div class="valign-wrapper" style="height: 100vh">
       <div class="container">
+        <?php
+        if (isset($_SESSION['message'])) {
+        ?>
+          <div class="error"><?= $_SESSION['message'] ?></div>
+        <?php
+        }
+        ?>
         <h3>Se connecter</h3>
         <a class="waves-effect waves-light btn" href="/login">Google</a>
       </div>

@@ -22,3 +22,10 @@
 .unverified {
   background-color: #c5c5c5 !important;
 }
+
+#settings {
+  width: 300px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0 10px;
+}

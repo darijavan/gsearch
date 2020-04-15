@@ -11,6 +11,9 @@ if (!empty($_POST)) {
   $toBeExported = explode(';', $_POST['list']);
 
   $cache_dir = __DIR__ . '/../cache';
+  $startDate = "2020-01-01";
+  if (isset($_POST['startDate']))
+    $startDate = $_POST['startDate'];
 
   if (!is_dir($cache_dir)) {
     mkdir($cache_dir, 0755);
@@ -51,9 +54,8 @@ if (!empty($_POST)) {
       unlink($csvPath);
       exit();
     } else {
-      $zip->addFile($csvPath, $siteDomain);
-      $download_file = file_get_contents($csvPath);
-      $zip->addFromString(basename($csvPath), $download_file);
+      $zip->addFile($csvPath, basename($csvPath));
+      unlink($csvPath);
     }
   }
 
