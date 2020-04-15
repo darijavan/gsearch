@@ -105,17 +105,17 @@ function post(url, params, method = 'POST') {
 }
 
 // init dropdown
-var dropdownElements = document.querySelectorAll('.dropdown-trigger');
-var dropdowns = M.Dropdown.init(dropdownElements, {
-  hover: true,
-  constrainWidth: false
-});
+// var dropdownElements = document.querySelectorAll('.dropdown-trigger');
+// var dropdowns = M.Dropdown.init(dropdownElements, {
+//   hover: true,
+//   constrainWidth: false
+// });
 
 // init datepicker
 var pickerElements = document.querySelectorAll('.datepicker');
 var pickers = M.Datepicker.init(pickerElements, {
   autoClose: true,
-  format: 'yyyy-mm-dd',
+  format: 'dd/mm/yyyy',
   defaultDate: new Date(2020, 0, 1),
   setDefaultDate: true,
   container: document.querySelector('.modal-container'),

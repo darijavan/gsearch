@@ -34,21 +34,21 @@
       if (isset($sites) && count($sites)) {
       ?>
         <ul class="collection">
-          <li class="collection-item">
+          <li class="collection-item title">
             <label>
               <input type="checkbox" class="filled-in" id="selectAll">
               <span class="bold black-text">TOUT SELECTIONNER</span>
             </label>
-            <div class="right btn waves-effect teal" id="export">
-              <i class="material-icons left">cloud_download</i>
-              <span>Exporter en CSV</span>
-            </div>
-            <a class='dropdown-trigger btn btn-flat white right' href='#' data-target='settings' style="margin-right: 10px"><i class="material-icons">settings</i></a>
-
-            <div id="settings" class="dropdown-content">
-              <div class="input-field" style="margin-bottom: .5rem">
-                <label for="startDate">Jour de début des requêtes</label>
+            <div class="right row">
+              <div class="input-field col" style="margin-top: -.1rem">
+                <label for="startDate">Choisir la date minimum</label>
                 <input id="startDate" type="text" class="datepicker" name="startDate">
+              </div>
+              <div class="col">
+                <div class="btn waves-effect teal" id="export">
+                  <i class="material-icons left">cloud_download</i>
+                  <span>Exporter en CSV</span>
+                </div>
               </div>
             </div>
           </li>

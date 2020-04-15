@@ -23,7 +23,7 @@ function getSites($access_token)
 
   $result = curl_exec($ch);
   $obj = json_decode($result);
-  
+
   return $obj;
 }
 
@@ -31,7 +31,7 @@ function getSites($access_token)
  * @param string $siteUrl
  * @param string $access_token
  */
-function getSiteAnalytics($siteUrl, $access_token)
+function getSiteAnalytics($siteUrl, $access_token, $startDate)
 {
   $url = "https://www.googleapis.com/webmasters/v3/sites/" . urlencode($siteUrl) . "/searchAnalytics/query";
 
@@ -45,7 +45,7 @@ function getSiteAnalytics($siteUrl, $access_token)
     "dimensions" => array(
       "query"
     ),
-    "startDate" => "2020-01-01",
+    "startDate" => $startDate,
     "endDate" => date("Y-m-d"),
     "startRow" => 0,
     "rowLimit" => 25000

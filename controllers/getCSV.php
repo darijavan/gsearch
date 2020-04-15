@@ -12,8 +12,11 @@ if (!empty($_POST)) {
 
   $cache_dir = __DIR__ . '/../cache';
   $startDate = "2020-01-01";
-  if (isset($_POST['startDate']))
-    $startDate = $_POST['startDate'];
+  if (isset($_POST['startDate'])) {
+    $dates = explode('/', $_POST['startDate']);
+    krsort($dates);
+    $startDate = implode('-', $dates);
+  }
 
   if (!is_dir($cache_dir)) {
     mkdir($cache_dir, 0755);
@@ -25,11 +28,12 @@ if (!empty($_POST)) {
     exit("Unable to create zip file");
   }
 
+  $csvfiles = array();
   foreach ($toBeExported as $site) {
-    $obj = getSiteAnalytics(urldecode($site), $_COOKIE['access_token']);
+    $obj = getSiteAnalytics(urldecode($site), $_COOKIE['access_token'], $startDate);
     $siteDomain = preg_replace('/^(http[s]?:\/\/)|(sc-domain:)/i', '', preg_replace('/\/$/i', '', urldecode($site)));
     $jsonPath = "$cache_dir/$siteDomain.json";
-    $csvPath = "$cache_dir/$siteDomain.csv";
+    $csvPath = "$cache_dir/$siteDomain" . $_COOKIE['PHPSESSID'] . ".csv";
 
     if (file_exists($jsonPath))
       unlink($jsonPath);
@@ -51,11 +55,11 @@ if (!empty($_POST)) {
       header('Content-Length: ' . filesize($csvPath));
       flush(); // Flush system output buffer
       readfile($csvPath);
-      unlink($csvPath);
+      $csvfiles[] = $csvPath;
       exit();
     } else {
-      $zip->addFile($csvPath, basename($csvPath));
-      unlink($csvPath);
+      $zip->addFile($csvPath, "$siteDomain.csv");
+      $csvfiles[] = $csvPath;
     }
   }
 
@@ -70,5 +74,10 @@ if (!empty($_POST)) {
   flush();
   readfile($zip_file);
   unlink($zip_file);
+
+  // Delete cache files
+  foreach ($csvfiles as $csv) {
+    unlink($csv);
+  }
   exit();
 }

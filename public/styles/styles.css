@@ -19,6 +19,10 @@
   line-height: 2.5rem;
 }
 
+.collection-item.title {
+  padding: 20px;
+}
+
 .unverified {
   background-color: #c5c5c5 !important;
 }
